@@ -43,28 +43,28 @@ export const deleteProduct = async (req: Request, res: Response) => {
 
 export const createProduct = async (req: Request, res: Response) => {
   const {
-    Handle,
-    Title,
-    Description,
-    SKU,
-    Grams,
-    Stock,
-    Price,
-    ComparePrice,
-    Barcode
+    handle,
+    title,
+    description,
+    sku,
+    grams,
+    stock,
+    price,
+    compareprice,
+    barcode
   } = req.body
 
   try {
     const newProduct = await Producto.create({
-      Handle,
-      Title,
-      Description,
-      SKU,
-      Grams,
-      Stock,
-      Price,
-      ComparePrice,
-      Barcode
+      handle,
+      title,
+      description,
+      sku,
+      grams,
+      stock,
+      price,
+      compareprice,
+      barcode
     })
 
     res.status(201).json(newProduct)
@@ -76,29 +76,29 @@ export const createProduct = async (req: Request, res: Response) => {
 export const updateProduct = async (req: Request, res: Response) => {
   const { id } = req.params
   const {
-    Handle,
-    Title,
-    Description,
-    SKU,
-    Grams,
-    Stock,
-    Price,
-    ComparePrice,
-    Barcode
+    handle,
+    title,
+    description,
+    sku,
+    grams,
+    stock,
+    price,
+    compareprice,
+    barcode
   } = req.body
 
   try {
     const updatedProduct = await Producto.update(
       {
-        Handle,
-        Title,
-        Description,
-        SKU,
-        Grams,
-        Stock,
-        Price,
-        ComparePrice,
-        Barcode
+        handle,
+        title,
+        description,
+        sku,
+        grams,
+        stock,
+        price,
+        compareprice,
+        barcode
       },
       {
         where: { id: id }

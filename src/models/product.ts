@@ -9,35 +9,36 @@ const Producto = db.define(
       primaryKey: true,
       autoIncrement: true
     },
-    Handle: {
+    handle: {
       type: DataTypes.STRING
     },
-    Title: {
+    title: {
       type: DataTypes.STRING
     },
-    Description: {
+    description: {
       type: DataTypes.STRING
     },
-    SKU: {
+    sku: {
       type: DataTypes.STRING
     },
-    Grams: {
+    grams: {
       type: DataTypes.DECIMAL
     },
-    Stock: {
-      type: DataTypes.NUMBER
+    stock: {
+      type: DataTypes.INTEGER
     },
-    Price: {
+    price: {
       type: DataTypes.DECIMAL
     },
-    ComparePrice: {
+    compareprice: {
       type: DataTypes.DECIMAL
     },
-    Barcode: {
+    barcode: {
       type: DataTypes.STRING
     }
   },
   {
+    tableName: "productos",
     createdAt: false,
     updatedAt: false
   }

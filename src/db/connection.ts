@@ -3,15 +3,15 @@ import { Sequelize } from "sequelize"
 
 dotenv.config()
 
-const dbName = process.env.DB_NAME ?? "nombre_por_defecto"
-const dbUser = process.env.DB_USER ?? "usuario_por_defecto"
-const dbPassword = process.env.DB_PASSWORD ?? "contraseña_por_defecto"
-const dbHost = process.env.DB_HOST ?? "localhost"
-
-const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
-  host: dbHost,
-  dialect: "mysql",
-  logging: false
-})
+const sequelize = new Sequelize(
+  process.env.DB_NAME!,
+  process.env.DB_USER!,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: "postgres",
+    logging: false
+  }
+)
 
 export default sequelize

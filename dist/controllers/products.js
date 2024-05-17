@@ -54,18 +54,18 @@ const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.deleteProduct = deleteProduct;
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { Handle, Title, Description, SKU, Grams, Stock, Price, ComparePrice, Barcode } = req.body;
+    const { handle, title, description, sku, grams, stock, price, compareprice, barcode } = req.body;
     try {
         const newProduct = yield product_1.default.create({
-            Handle,
-            Title,
-            Description,
-            SKU,
-            Grams,
-            Stock,
-            Price,
-            ComparePrice,
-            Barcode
+            handle,
+            title,
+            description,
+            sku,
+            grams,
+            stock,
+            price,
+            compareprice,
+            barcode
         });
         res.status(201).json(newProduct);
     }
@@ -77,18 +77,18 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.createProduct = createProduct;
 const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const { Handle, Title, Description, SKU, Grams, Stock, Price, ComparePrice, Barcode } = req.body;
+    const { handle, title, description, sku, grams, stock, price, compareprice, barcode } = req.body;
     try {
         const updatedProduct = yield product_1.default.update({
-            Handle,
-            Title,
-            Description,
-            SKU,
-            Grams,
-            Stock,
-            Price,
-            ComparePrice,
-            Barcode
+            handle,
+            title,
+            description,
+            sku,
+            grams,
+            stock,
+            price,
+            compareprice,
+            barcode
         }, {
             where: { id: id }
         });

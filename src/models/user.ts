@@ -2,17 +2,15 @@ import db from "../db/connection"
 import { DataTypes, Model } from "sequelize"
 
 interface UsuarioAttributes {
-  id?: number // Podría ser opcional dependiendo de tu lógica
+  id?: number
   email: string
   password: string
 }
 
 class Usuario extends Model<UsuarioAttributes> implements UsuarioAttributes {
-  public id!: number // Asegúrate de definir todas las propiedades como públicas
+  public id!: number
   public email!: string
   public password!: string
-
-  // Aquí puedes definir métodos adicionales si es necesario
 }
 
 Usuario.init(
@@ -39,5 +37,4 @@ Usuario.init(
     timestamps: false
   }
 )
-
 export default Usuario

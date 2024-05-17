@@ -11,34 +11,35 @@ const Producto = connection_1.default.define("Producto", {
         primaryKey: true,
         autoIncrement: true
     },
-    Handle: {
+    handle: {
         type: sequelize_1.DataTypes.STRING
     },
-    Title: {
+    title: {
         type: sequelize_1.DataTypes.STRING
     },
-    Description: {
+    description: {
         type: sequelize_1.DataTypes.STRING
     },
-    SKU: {
+    sku: {
         type: sequelize_1.DataTypes.STRING
     },
-    Grams: {
+    grams: {
         type: sequelize_1.DataTypes.DECIMAL
     },
-    Stock: {
-        type: sequelize_1.DataTypes.NUMBER
+    stock: {
+        type: sequelize_1.DataTypes.INTEGER
     },
-    Price: {
+    price: {
         type: sequelize_1.DataTypes.DECIMAL
     },
-    ComparePrice: {
+    compareprice: {
         type: sequelize_1.DataTypes.DECIMAL
     },
-    Barcode: {
+    barcode: {
         type: sequelize_1.DataTypes.STRING
     }
 }, {
+    tableName: "productos",
     createdAt: false,
     updatedAt: false
 });
