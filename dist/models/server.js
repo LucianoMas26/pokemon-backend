@@ -17,14 +17,19 @@ const products_1 = __importDefault(require("../routes/products"));
 const users_1 = __importDefault(require("../routes/users"));
 const connection_1 = __importDefault(require("../db/connection"));
 const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
+// Cargar variables de entorno
+dotenv_1.default.config();
+// Importar modelos para que Sequelize los reconozca
+require("../models/product");
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || "3001";
-        this.listen();
         this.middlewares();
         this.routes();
         this.dbConnect();
+        this.listen();
     }
     listen() {
         this.app.listen(this.port, () => {
@@ -43,11 +48,12 @@ class Server {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield connection_1.default.authenticate();
-                console.log("conexion exitosa");
+                console.log("Conexión exitosa");
+                yield connection_1.default.sync({ force: false });
+                console.log("Modelos sincronizados con la base de datos");
             }
             catch (error) {
-                console.log(error);
-                console.log("error al conectarse a la base de datos");
+                console.error("Error al conectarse a la base de datos:", error);
             }
         });
     }

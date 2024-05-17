@@ -4,6 +4,13 @@ import routerProduct from "../routes/products"
 import routerUser from "../routes/users"
 import db from "../db/connection"
 import cors from "cors"
+import dotenv from "dotenv"
+
+// Cargar variables de entorno
+dotenv.config()
+
+// Importar modelos para que Sequelize los reconozca
+import "../models/product"
 
 class Server {
   private app: Application
@@ -12,10 +19,10 @@ class Server {
   constructor() {
     this.app = express()
     this.port = process.env.PORT || "3001"
-    this.listen()
     this.middlewares()
     this.routes()
     this.dbConnect()
+    this.listen()
   }
 
   listen() {
@@ -23,6 +30,7 @@ class Server {
       console.log(`App corriendo en el puerto ${this.port}`)
     })
   }
+
   middlewares() {
     this.app.use(express.json())
     this.app.use(cors())
@@ -36,11 +44,14 @@ class Server {
   async dbConnect() {
     try {
       await db.authenticate()
-      console.log("conexion exitosa")
+      console.log("Conexión exitosa")
+
+      await db.sync({ force: false })
+      console.log("Modelos sincronizados con la base de datos")
     } catch (error) {
-      console.log(error)
-      console.log("error al conectarse a la base de datos")
+      console.error("Error al conectarse a la base de datos:", error)
     }
   }
 }
+
 export default Server
