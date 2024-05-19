@@ -6,10 +6,8 @@ import db from "../db/connection"
 import cors from "cors"
 import dotenv from "dotenv"
 
-// Cargar variables de entorno
 dotenv.config()
 
-// Importar modelos para que Sequelize los reconozca
 import "../models/product"
 
 class Server {
