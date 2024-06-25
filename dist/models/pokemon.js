@@ -5,30 +5,45 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const config_1 = __importDefault(require("../config"));
-class User extends sequelize_1.Model {
+class Pokemon extends sequelize_1.Model {
 }
-User.init({
+Pokemon.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    email: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            isEmail: true
-        }
-    },
-    password: {
+    name: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
+    },
+    level: {
+        type: sequelize_1.DataTypes.INTEGER,
+        allowNull: false
+    },
+    type: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    abilities: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false
+    },
+    offerForTrade: {
+        type: sequelize_1.DataTypes.BOOLEAN,
+        defaultValue: false
+    },
+    userId: {
+        type: sequelize_1.DataTypes.INTEGER,
+        references: {
+            model: "users",
+            key: "id"
+        }
     }
 }, {
     sequelize: config_1.default,
-    modelName: "User",
-    tableName: "users",
+    modelName: "Pokemon",
+    tableName: "pokemons",
     timestamps: false
 });
-exports.default = User;
+exports.default = Pokemon;

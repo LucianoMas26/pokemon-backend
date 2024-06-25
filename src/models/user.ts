@@ -1,29 +1,36 @@
-import db from "../db/connection"
-import { DataTypes, Model } from "sequelize"
+import { Model, DataTypes } from "sequelize"
+import sequelize from "../config"
+import Pokemon from "./pokemon"
 
-interface UsuarioAttributes {
-  id?: number
-  email: string
-  password: string
-}
-
-class Usuario extends Model<UsuarioAttributes> implements UsuarioAttributes {
+class User extends Model {
   public id!: number
   public email!: string
   public password!: string
+  public pokemons!: Pokemon[]
+}
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User
+    }
+  }
 }
 
-Usuario.init(
+User.init(
   {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
+      primaryKey: true
     },
+
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        isEmail: true
+      }
     },
     password: {
       type: DataTypes.STRING,
@@ -31,10 +38,11 @@ Usuario.init(
     }
   },
   {
-    sequelize: db,
-    modelName: "Usuario",
-    tableName: "usuarios",
+    sequelize,
+    modelName: "User",
+    tableName: "users",
     timestamps: false
   }
 )
-export default Usuario
+
+export default User

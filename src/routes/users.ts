@@ -1,9 +1,17 @@
 import { Router } from "express"
-import { addUser, loginUser } from "../controllers/users"
+import {
+  addUser,
+  loginUser,
+  getUsersWithPokemons,
+  getUserProfile
+} from "../controllers/users"
+import { auth } from "../middleware/auth"
 
 const router = Router()
 
-router.post("/", addUser)
+router.get("/", getUsersWithPokemons)
+router.post("/register", addUser)
 router.post("/login", loginUser)
+router.get("/profile", auth, getUserProfile)
 
 export default router
