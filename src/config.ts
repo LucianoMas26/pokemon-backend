@@ -4,19 +4,10 @@ import { Sequelize } from "sequelize"
 dotenv.config()
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME!,
-  process.env.DB_USER!,
-  process.env.DB_PASSWORD,
+  `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
   {
-    host: process.env.DB_HOST,
-    dialect: "postgres",
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectedUnauthorized: false
-      }
-    },
-    logging: false
+    logging: false,
+    native: false
   }
 )
 
