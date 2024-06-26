@@ -10,7 +10,7 @@ const config_1 = __importDefault(require("./config"));
 const users_1 = __importDefault(require("./routes/users"));
 const trade_1 = __importDefault(require("./routes/trade"));
 const pokemon_1 = __importDefault(require("./routes/pokemon"));
-const PORT = parseInt(process.env.PORT || "3001", 10);
+const PORT = parseInt(process.env.PORT || "3000", 10);
 const HOST = "RENDER" in process.env ? "0.0.0.0" : "localhost";
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());

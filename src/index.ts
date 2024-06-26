@@ -6,7 +6,7 @@ import routerUser from "./routes/users"
 import tradeRoutes from "./routes/trade"
 import routerPokemon from "./routes/pokemon"
 
-const PORT = parseInt(process.env.PORT || "3001", 10)
+const PORT = parseInt(process.env.PORT || "3000", 10)
 const HOST = "RENDER" in process.env ? "0.0.0.0" : "localhost"
 const app = express()
 
