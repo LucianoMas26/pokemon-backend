@@ -6,10 +6,8 @@ import routerUser from "./routes/users"
 import tradeRoutes from "./routes/trade"
 import routerPokemon from "./routes/pokemon"
 
-const PORT = parseInt(process.env.DB_PORT || "3001", 10)
-
-const HOST = process.env.RENDER ? "0.0.0.0" : "localhost"
-
+const PORT = 3000 || 3001
+const HOST = "RENDER" in process.env ? "0.0.0.0" : "localhost"
 const app = express()
 
 app.use(cors())
