@@ -8,6 +8,12 @@ const sequelize_1 = require("sequelize");
 dotenv_1.default.config();
 const sequelize = new sequelize_1.Sequelize(`postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`, {
     logging: false,
-    native: false
+    native: false,
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false
+        }
+    }
 });
 exports.default = sequelize;
