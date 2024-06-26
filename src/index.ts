@@ -20,7 +20,7 @@ app.use("/trades", tradeRoutes)
 sequelize
   .sync({ alter: true })
   .then(() => {
-    app.listen(PORT, HOST, () => {
+    app.listen(PORT, () => {
       console.log(`Servidor corriendo en puerto ${PORT}`)
     })
   })

@@ -21,7 +21,7 @@ app.use("/trades", trade_1.default);
 config_1.default
     .sync({ alter: true })
     .then(() => {
-    app.listen(PORT, HOST, () => {
+    app.listen(PORT, () => {
         console.log(`Servidor corriendo en puerto ${PORT}`);
     });
 })
