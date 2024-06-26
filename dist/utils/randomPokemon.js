@@ -23,11 +23,14 @@ const getRandomPokemons = (...args_1) => __awaiter(void 0, [...args_1], void 0, 
     const responses = yield Promise.all(promises);
     return responses.map((response) => {
         const pokemon = response.data;
+        const pokemonId = pokemon.id;
+        const officialArtworkUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
         return {
             name: pokemon.name,
             level: 1,
             type: pokemon.types[0].type.name,
-            abilities: pokemon.abilities.map((ability) => ability.ability.name)
+            abilities: pokemon.abilities.map((ability) => ability.ability.name),
+            image: officialArtworkUrl
         };
     });
 });

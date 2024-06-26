@@ -32,7 +32,7 @@ export const getOfferedPokemons = async (req: Request, res: Response) => {
           attributes: ["id", "email"]
         }
       ],
-      attributes: ["id", "name", "level", "type", "abilities"]
+      attributes: ["id", "name", "level", "type", "abilities", "image"]
     })
 
     res.json(offeredPokemons)
@@ -43,8 +43,7 @@ export const getOfferedPokemons = async (req: Request, res: Response) => {
 }
 
 export const createPokemon = async (req: Request, res: Response) => {
-  const { name, level, type, abilities } = req.body
-  const userId = req.user?.id
+  const { name, level, type, abilities, image, userId } = req.body
 
   try {
     const newPokemon = await Pokemon.create({
@@ -52,16 +51,27 @@ export const createPokemon = async (req: Request, res: Response) => {
       level,
       type,
       abilities,
+      image,
       userId,
       offerForTrade: false
     })
+
+    const updatedUser = await User.findByPk(userId, {
+      include: [Pokemon]
+    })
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: "Usuario no encontrado" })
+    }
+
     res.status(201).json(newPokemon)
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error al crear Pokémon:", error)
-    res.status(500).json({ error: "Error interno del servidor" })
+    res
+      .status(500)
+      .json({ error: error.message || "Error interno del servidor" })
   }
 }
-
 export const deletePokemon = async (req: Request, res: Response) => {
   const { pokemonId } = req.params
 
@@ -119,7 +129,7 @@ export const getUserPokemons = async (req: Request, res: Response) => {
 
     const userPokemons = await Pokemon.findAll({
       where: { userId: user.id },
-      attributes: ["id", "name", "level", "type", "abilities"]
+      attributes: ["id", "name", "level", "type", "abilities", "image"]
     })
 
     res.json(userPokemons)

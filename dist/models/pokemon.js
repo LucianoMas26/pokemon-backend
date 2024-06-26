@@ -33,6 +33,10 @@ Pokemon.init({
         type: sequelize_1.DataTypes.BOOLEAN,
         defaultValue: false
     },
+    image: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: true
+    },
     userId: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {

@@ -9,6 +9,7 @@ class Pokemon extends Model {
   public abilities!: string
   public userId!: number
   public offerForTrade!: boolean
+  public image!: string | null
 }
 
 Pokemon.init(
@@ -37,6 +38,11 @@ Pokemon.init(
     offerForTrade: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true
     },
     userId: {
       type: DataTypes.INTEGER,

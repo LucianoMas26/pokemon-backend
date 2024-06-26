@@ -11,7 +11,7 @@ export const getUsersWithPokemons = async (req: Request, res: Response) => {
       include: {
         model: Pokemon,
         as: "pokemons",
-        attributes: ["id", "name", "level", "type", "abilities"]
+        attributes: ["id", "name", "level", "type", "abilities", "image"]
       }
     })
 
@@ -54,6 +54,7 @@ export const addUser = async (req: Request, res: Response) => {
         level: pokemon.level,
         type: pokemon.type,
         abilities: pokemon.abilities.join(", "),
+        image: pokemon.image,
         userId: newUser.id
       })
     })

@@ -24,7 +24,7 @@ const getUsersWithPokemons = (req, res) => __awaiter(void 0, void 0, void 0, fun
             include: {
                 model: models_1.Pokemon,
                 as: "pokemons",
-                attributes: ["id", "name", "level", "type", "abilities"]
+                attributes: ["id", "name", "level", "type", "abilities", "image"]
             }
         });
         res.json(users);
@@ -61,6 +61,7 @@ const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 level: pokemon.level,
                 type: pokemon.type,
                 abilities: pokemon.abilities.join(", "),
+                image: pokemon.image,
                 userId: newUser.id
             });
         });

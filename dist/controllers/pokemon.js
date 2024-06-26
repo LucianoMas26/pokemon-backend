@@ -43,7 +43,7 @@ const getOfferedPokemons = (req, res) => __awaiter(void 0, void 0, void 0, funct
                     attributes: ["id", "email"]
                 }
             ],
-            attributes: ["id", "name", "level", "type", "abilities"]
+            attributes: ["id", "name", "level", "type", "abilities", "image"]
         });
         res.json(offeredPokemons);
     }
@@ -54,18 +54,23 @@ const getOfferedPokemons = (req, res) => __awaiter(void 0, void 0, void 0, funct
 });
 exports.getOfferedPokemons = getOfferedPokemons;
 const createPokemon = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    const { name, level, type, abilities } = req.body;
-    const userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+    const { name, level, type, abilities, image, userId } = req.body;
     try {
         const newPokemon = yield pokemon_1.default.create({
             name,
             level,
             type,
             abilities,
+            image,
             userId,
             offerForTrade: false
         });
+        const updatedUser = yield models_1.User.findByPk(userId, {
+            include: [pokemon_1.default]
+        });
+        if (!updatedUser) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
         res.status(201).json(newPokemon);
     }
     catch (error) {
@@ -121,7 +126,7 @@ const getUserPokemons = (req, res) => __awaiter(void 0, void 0, void 0, function
         }
         const userPokemons = yield pokemon_1.default.findAll({
             where: { userId: user.id },
-            attributes: ["id", "name", "level", "type", "abilities"]
+            attributes: ["id", "name", "level", "type", "abilities", "image"]
         });
         res.json(userPokemons);
     }
