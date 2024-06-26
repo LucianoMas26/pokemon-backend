@@ -6,7 +6,9 @@ import routerUser from "./routes/users"
 import tradeRoutes from "./routes/trade"
 import routerPokemon from "./routes/pokemon"
 
-const PORT = process.env.DB_PORT || 3001
+const PORT = parseInt(process.env.DB_PORT || "3001", 10)
+
+const HOST = process.env.RENDER ? "0.0.0.0" : "localhost"
 
 const app = express()
 
@@ -20,7 +22,7 @@ app.use("/trades", tradeRoutes)
 sequelize
   .sync({ alter: true })
   .then(() => {
-    app.listen(PORT, () => {
+    app.listen(PORT, HOST, () => {
       console.log(`Servidor corriendo en puerto ${PORT}`)
     })
   })
