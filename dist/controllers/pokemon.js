@@ -75,7 +75,9 @@ const createPokemon = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     }
     catch (error) {
         console.error("Error al crear Pokémon:", error);
-        res.status(500).json({ error: "Error interno del servidor" });
+        res
+            .status(500)
+            .json({ error: error.message || "Error interno del servidor" });
     }
 });
 exports.createPokemon = createPokemon;
