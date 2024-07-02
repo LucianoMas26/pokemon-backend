@@ -5,7 +5,9 @@ import {
   createPokemon,
   deletePokemon,
   removeOfferForTrade,
-  getUserPokemons
+  getUserPokemons,
+  addRandomPokemonToUser,
+  createNewPokemon
 } from "../controllers/pokemon"
 
 const router = express.Router()
@@ -16,5 +18,7 @@ router.post("/create", createPokemon)
 router.delete("/:pokemonId", deletePokemon)
 router.delete("/:pokemonId/trade", removeOfferForTrade)
 router.get("/:userId/pokemons", getUserPokemons)
+router.post("/:userId/pokemons/random", addRandomPokemonToUser)
+router.post("/new/create", createNewPokemon)
 
 export default router

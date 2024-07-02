@@ -12,9 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserPokemons = exports.removeOfferForTrade = exports.deletePokemon = exports.createPokemon = exports.getOfferedPokemons = exports.offerPokemonForTrade = void 0;
+exports.createNewPokemon = exports.addRandomPokemonToUser = exports.getUserPokemons = exports.removeOfferForTrade = exports.deletePokemon = exports.createPokemon = exports.getOfferedPokemons = exports.offerPokemonForTrade = void 0;
 const pokemon_1 = __importDefault(require("../models/pokemon"));
 const models_1 = require("../models");
+const randomPokemon_1 = require("../utils/randomPokemon");
 const offerPokemonForTrade = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { pokemonId } = req.params;
     try {
@@ -138,3 +139,51 @@ const getUserPokemons = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.getUserPokemons = getUserPokemons;
+const addRandomPokemonToUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.params;
+    try {
+        const user = yield models_1.User.findByPk(userId);
+        if (!user) {
+            return res.status(404).json({ error: `User with ID ${userId} not found` });
+        }
+        const randomPokemon = yield (0, randomPokemon_1.getRandomPokemon)();
+        const newPokemon = yield pokemon_1.default.create({
+            name: randomPokemon.name,
+            level: randomPokemon.level,
+            type: randomPokemon.type,
+            abilities: randomPokemon.abilities.join(", "),
+            image: randomPokemon.image,
+            userId: user.id
+        });
+        res.status(201).json(newPokemon);
+    }
+    catch (error) {
+        console.error("Error adding random Pokémon to user:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+exports.addRandomPokemonToUser = addRandomPokemonToUser;
+const createNewPokemon = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req.body);
+    const { name, level, type, abilities, image, userId } = req.body;
+    if (!name || !level || !type || !abilities || !image || !userId) {
+        return res.status(400).json({ error: "Todos los campos son obligatorios" });
+    }
+    try {
+        const newPokemon = yield pokemon_1.default.create({
+            name,
+            level,
+            type,
+            abilities,
+            image,
+            userId,
+            offerForTrade: false
+        });
+        res.status(201).json(newPokemon);
+    }
+    catch (error) {
+        console.error("Error al crear Pokémon:", error);
+        res.status(500).json({ error: "Error interno del servidor" });
+    }
+});
+exports.createNewPokemon = createNewPokemon;

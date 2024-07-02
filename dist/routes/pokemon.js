@@ -12,4 +12,6 @@ router.post("/create", pokemon_1.createPokemon);
 router.delete("/:pokemonId", pokemon_1.deletePokemon);
 router.delete("/:pokemonId/trade", pokemon_1.removeOfferForTrade);
 router.get("/:userId/pokemons", pokemon_1.getUserPokemons);
+router.post("/:userId/pokemons/random", pokemon_1.addRandomPokemonToUser);
+router.post("/new/create", pokemon_1.createNewPokemon);
 exports.default = router;

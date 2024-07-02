@@ -5,14 +5,16 @@ import sequelize from "./config"
 import routerUser from "./routes/users"
 import tradeRoutes from "./routes/trade"
 import routerPokemon from "./routes/pokemon"
+import multer from "multer"
 
 const PORT = parseInt(process.env.PORT || "3000", 10)
 const HOST = "RENDER" in process.env ? "0.0.0.0" : "localhost"
 const app = express()
 
-app.use(cors())
-app.use(bodyParser.json())
+app.use(bodyParser.json({ limit: "10mb" }))
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }))
 
+app.use(cors())
 app.use("/users", routerUser)
 app.use("/pokemons", routerPokemon)
 app.use("/trades", tradeRoutes)
